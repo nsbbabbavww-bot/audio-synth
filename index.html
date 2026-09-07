@@ -277,7 +277,7 @@
 
     <script>
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        
+
         let isPlaying = false;
         let currentStep = 0;
         let nextNoteTime = 0;
@@ -318,14 +318,14 @@
         const playBtn = document.getElementById('playBtn');
         const bpmSlider = document.getElementById('bpm');
         const bpmValue = document.getElementById('bpmValue');
-        
+
         bpmSlider.addEventListener('input', (e) => {
             bpmValue.textContent = e.target.value;
         });
 
         playBtn.addEventListener('click', () => {
             if (audioCtx.state === 'suspended') audioCtx.resume();
-            
+
             isPlaying = !isPlaying;
             if (isPlaying) {
                 playBtn.textContent = 'Stop';
@@ -399,11 +399,11 @@
             }
             const noise = audioCtx.createBufferSource();
             noise.buffer = buffer;
-            
+
             const noiseFilter = audioCtx.createBiquadFilter();
             noiseFilter.type = 'highpass';
             noiseFilter.frequency.value = 1000;
-            
+
             const noiseGain = audioCtx.createGain();
             noiseGain.gain.setValueAtTime(1, time);
             noiseGain.gain.exponentialRampToValueAtTime(0.01, time + 0.2);
@@ -416,7 +416,7 @@
             const osc = audioCtx.createOscillator();
             const oscGain = audioCtx.createGain();
             osc.type = 'triangle';
-            
+
             osc.frequency.setValueAtTime(250, time);
             oscGain.gain.setValueAtTime(0.7, time);
             oscGain.gain.exponentialRampToValueAtTime(0.01, time + 0.1);
@@ -441,9 +441,9 @@
             const filter = audioCtx.createBiquadFilter();
 
             osc.type = waveform;
-            
+
             // Notes for a simple bassline (C minor pentatonic scale roughly)
-            const notes = [32.7, 36.7, 38.9, 43.6, 49.0, 55.0, 58.3, 65.4]; 
+            const notes = [32.7, 36.7, 38.9, 43.6, 49.0, 55.0, 58.3, 65.4];
             // Randomize pitch slightly based on step for a groovier feel, or keep it fixed
             const noteIdx = (stepNumber * 3) % notes.length;
             osc.frequency.setValueAtTime(notes[noteIdx], time);
